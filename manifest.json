@@ -1,0 +1,28 @@
+{
+  "name": "Experiment Twister",
+  "description": "Run a study based on an experiment design",
+  "version": "2.0",
+  "permissions": [
+    "tabs",
+    "http://www.google.com/*",
+    "webNavigation",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://www.google.com/*"],
+      "js": ["task_key.js","whiskers.js","content.js"],
+      "css": ["css/bootstrap.css"]
+    }
+  ],
+  "background": {
+    "scripts": ["background.js","content.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_title": "Add some content to the page",
+    "default_popup": "browser_action/popup.html"
+  },
+  "web_accessible_resources": ["Images/*", "Templates/*", "css/*"],
+  "manifest_version": 2
+}

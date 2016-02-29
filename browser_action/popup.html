@@ -1,0 +1,45 @@
+<script type="text/javascript" src="popup.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+<body style="width: 400px;">
+	<div class="container">
+		<header>
+			<h3>Twister</h3>
+		</header>
+		<hr />
+		<div class="row">
+			<div class="col-lg-12">
+				<form>
+					<div class="form-group">
+					    <label for="myInput">Participant #</label>
+					    <input type="text" class="form-control" id="myInput" placeholder="Please enter the participant number">
+					</div>
+					<div class="form-group">
+					    <label for="mySel">Search Type</label>
+						<select class="form-control" id="mySel">
+							<option value="ex-order">Part 1</option>
+							<option value="lt-order">Part 2</option>
+						</select>
+					</div>
+					<div class="form-group">
+					    <label for="myTask">Current Task</label>
+						<select class="form-control" id="myTask">
+							<option value="N">N</option>
+							<option value="TS">TS</option>
+							<option value="L">L</option>
+							<option value="HE">HE</option>
+							<option value="S">S</option>
+						</select>
+					</div>
+				</form>
+                <div class="form-group">
+                    <button id="button" onclick="start_experiment()">
+                      <span>Start Experiment</span>
+                    </button>
+                    <button id="progress" onclick="next_task()">
+                        <span>Progress Task</span>
+                    </button>
+                </div>
+			</div>
+		</div>
+	</div>
+</body>
