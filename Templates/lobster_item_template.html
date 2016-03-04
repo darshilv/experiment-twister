@@ -9,7 +9,16 @@
                 <h3><a href="">{item.place}</a></h3>
                 <p>{item.description}</p>
                 <p>
-                    <ul class="list-un"></ul>
+                    <ul class="list-unstyled list-inline">
+                        <li>
+                            <div class="rating">
+                                {item.rating}
+                            </div>
+                        </li>
+                        <li>
+                            {item.cost}
+                        </li>
+                    </ul>
                 </p>
             </div>
         </li>

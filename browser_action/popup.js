@@ -178,6 +178,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  document.getElementById("start").onclick = function(){
+    current_task = task_array.indexOf(taskBx.value);
+    
+    sendObj = {
+      type: "load-task",
+      task : task_array[current_task]
+    }
+
+    sendMessage(sendObj, function(response){
+      // console.log(response);
+      if(response.task == "loaded"){
+        // set current task for the experiment
+        taskBx.value = task_array[current_task];
+      }
+    });
+
+  }
+
   document.getElementById("progress").onclick = function(){
     if(current_task < 4){
       current_task++;  

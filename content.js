@@ -1,5 +1,5 @@
 var tkey = {
-  "N" : "my none option",
+  "N" : "none",
   "HE" : "Based on your previous searches",
   "S" : "Based on your friends interests",
   "TS" : "Based on current time of the day",
@@ -53,7 +53,7 @@ function getTemplate(templateName){
 }
 
 function whisker_renderer_d(templateText, dataObj){
-  return whiskers.render(templateText, dataObj);;
+  return whiskers.render(templateText, dataObj);
 }
 
 function find_search_keyword(){
@@ -94,7 +94,13 @@ document.addEventListener("DOMSubtreeModified", function(e){
     setTimeout(function(){
       rhsblock = document.getElementById("rhs");
       storage.get("task_title", function(result){
-        tempHtml.innerHTML = whisker_renderer_d(title_template, {"title" : result.task_title});
+        // console.log(result.task_title);
+        if(result.task_title === 'none'){
+          //do nothing
+          tempHtml.innerHTML = "<div style='margin: 10px;'></div>";
+        } else{
+          tempHtml.innerHTML = whisker_renderer_d(title_template, {"title" : result.task_title});
+        }
         if(taskData){
           tempHtml.innerHTML += whisker_renderer_d(e_item_template, {items : taskData});
           // console.log(whisker_renderer_d(e_item_template, {items : taskData}));  

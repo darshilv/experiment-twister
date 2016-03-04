@@ -481,7 +481,7 @@ var lobster_list = {
     {
        "image" : chrome.extension.getURL("Images/Caspian_Village.jpg"),
        "place":"Caspian Village",
-       "description":"",
+       "description":"Here, at Caspian Village, our goal is to provide our customers with the satisfaction they deserve.We use only the finest ingredients to bring you the mouthwatering cuisine of the Mediterranean. With our excellent service and food, we will put a smile on your face!",
        "rating" : "4.3 (6)",
        "cost" : "$$"
     },
