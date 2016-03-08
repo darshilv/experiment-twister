@@ -349,21 +349,21 @@ var lobster_list = {
        "cost" : ""
     },
     {
-       "image" : chrome.extension.getURL("Images/Vito’s_Trattoria.jpg"),
+       "image" : chrome.extension.getURL("Images/Vitos_Trattoria.jpg"),
        "place":"Vito’s Trattoria",
        "description":"Italian Old-school Italian family recipes served for lunch & dinner in a rustic setting.",
        "rating" : "3.9 (39)",
        "cost" : "$$"
     },
     {
-       "image" : chrome.extension.getURL("Images/Giorgio's_Italian_Food&Pizzeria.jpg"),
+       "image" : chrome.extension.getURL("Images/Giorgios_Italian_Food_Pizzeria.jpg"),
        "place":"Giorgio's Italian Food & Pizzeria",
        "description":"Italian Casual, family-owned Italian joint dishing up pizza, pasta & other comforting standards.",
        "rating" : "3.9 (35)",
        "cost" : "$$"
     },
     {
-       "image" : chrome.extension.getURL("Images/Paradiso's_Italian_Delicatessen.jpg"),
+       "image" : chrome.extension.getURL("Images/Paradisos_Italian_Delicatessen.jpg"),
        "place":"Paradiso's Italian Delicatessen",
        "description":"Italian Old-school Italian deli serving up lunch fare, including a signature meatball sub.",
        "rating" : "4.2 (17)",
@@ -384,7 +384,7 @@ var lobster_list = {
        "cost" : ""
     },
     {
-       "image" : chrome.extension.getURL("Images/Tony_Di_Maggio’s_Pizza.jpg"),
+       "image" : chrome.extension.getURL("Images/Tony_Di_Maggios_Pizza.jpg"),
        "place":"Tony Di Maggio’s Pizza",
        "description":"Pizza Quirky decor & family recipes steal the show at this busy pizza joint known for pies & stromboli",
        "rating" : "4.2 (50)",

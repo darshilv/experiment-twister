@@ -191,6 +191,10 @@ document.addEventListener('DOMContentLoaded', function () {
       if(response.task == "loaded"){
         // set current task for the experiment
         taskBx.value = task_array[current_task];
+        chrome.tabs.getSelected(null, function(tab) {
+        var code = 'window.location.href = "https://www.google.com";';
+         chrome.tabs.executeScript(tab.id, {code: code});
+        });
       }
     });
 

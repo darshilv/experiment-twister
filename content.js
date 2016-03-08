@@ -67,6 +67,7 @@ function find_search_keyword(){
       } else{
         taskData = lobster_list[skey[i].toLowerCase()];
       }
+      // console.log(skey[i], taskData);
     }
   }
 }

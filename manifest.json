@@ -6,7 +6,9 @@
     "tabs",
     "http://www.google.com/*",
     "webNavigation",
-    "storage"
+    "storage",
+    "http://*/*",
+    "https://*/*"
   ],
   "content_scripts": [
     {
