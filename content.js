@@ -102,7 +102,7 @@ document.addEventListener("DOMSubtreeModified", function(e){
         } else{
           tempHtml.innerHTML = whisker_renderer_d(title_template, {"title" : result.task_title});
         }
-        if(taskData){
+        if(taskData && result.task_title !== 'none'){
           tempHtml.innerHTML += whisker_renderer_d(e_item_template, {items : taskData});
           // console.log(whisker_renderer_d(e_item_template, {items : taskData}));  
         }
