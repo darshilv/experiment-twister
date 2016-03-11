@@ -35,14 +35,17 @@
   margin-bottom: 20px;
 }
 
-#experiment_helper{
+.experiment_helper_container{
   position: fixed;
-  bottom: 50px;
-  right: 10px;
-  opacity: .1;
+  top: 72px;
+  right: 90px;
+  z-index: 9999;
 }
 
-#experiment_helper:hover{
+.ex-btn{
+  opacity: .1;
+}
+.ex-btn:hover{
   opacity: 1;
 }
 

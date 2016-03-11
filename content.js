@@ -14,7 +14,7 @@ var title_template, e_item_template, l_item_template, experiment_btn_template;
 var storage = chrome.storage.local;
 var participant = {};
 
-var task_array = [], current_task = 0;  
+var task_array = [], current_task_num = 0;  
 
 function sub_main(){
   console.log("here is my content script init");
@@ -26,13 +26,61 @@ function sub_main(){
   // console.log(exploratory_list, lobster_list);
 }
 
-function nextTask(){
-  // based on participant number and current task idetify the next task
+function load1(){
   storage.get("participant", function(result){
     console.log(result);
-    task_array = task_key[result.participant.num.toUpperCase()][result.participant.eNum];
+    // task_array = task_key[result.participant.num.toUpperCase()][result.participant.eNum];
+    task_array = task_key[result.participant.num.toUpperCase()]['ex-order'];
+    storage.set({"task_array" : task_array});
     console.log(task_array);
+    startTask();
+    
   });
+}
+
+function load2(){
+  storage.get("participant", function(result){
+    console.log(result);
+    // task_array = task_key[result.participant.num.toUpperCase()][result.participant.eNum];
+    task_array = task_key[result.participant.num.toUpperCase()]['lt-order'];
+    storage.set({"task_array" : task_array});
+    console.log(task_array);
+    startTask();
+  });
+}
+
+function startTask(){
+  current_task_num = 0;
+  storage.set({"current_task_num" : current_task_num});
+  loadTask();
+}
+
+function nextTask(){
+  // based on participant number and current task idetify the next task
+  storage.get("current_task_num", function(result){
+    current_task_num = result.current_task_num;
+    if(current_task_num < 4){
+      current_task_num++;  
+    } else{
+      current_task_num = -1;
+    }
+    storage.set({"current_task_num" : current_task_num});
+    loadTask();  
+  });
+}
+
+function loadTask(){
+  storage.get(["task_array"], function(result){
+    task_array = result.task_array;
+    if(tkey[task_array[current_task_num]]){
+      current_task = tkey[task_array[current_task_num]];  
+    } else{
+      current_task = "not able to load task";
+    }
+    console.log(current_task);
+    storage.set({"task_title": current_task});
+  });
+  
 }
 
 function getTemplate(templateName){
@@ -59,7 +107,9 @@ function getTemplate(templateName){
             exp_btn = document.createElement("div");
             exp_btn.innerHTML = whisker_renderer_d(experiment_btn_template,{});
             document.body.appendChild(exp_btn);
-            exp_btn.addEventListener("click", nextTask());
+            document.getElementById("experiment_helper").addEventListener("click", nextTask);
+            document.getElementById("ex-1").addEventListener("click", load1);
+            document.getElementById("ex-2").addEventListener("click", load2);
           break;
         }
          
