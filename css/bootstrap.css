@@ -35,6 +35,17 @@
   margin-bottom: 20px;
 }
 
+#experiment_helper{
+  position: fixed;
+  bottom: 50px;
+  right: 10px;
+  opacity: .1;
+}
+
+#experiment_helper:hover{
+  opacity: 1;
+}
+
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;

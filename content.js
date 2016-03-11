@@ -9,18 +9,30 @@ var tkey = {
 var skey = ["San Francisco", "Sausalito", "Miami", "Orange County", "Tahoe", "Italian", "Chinese", "Indian", "Thai", "Mediterranean"];
 
 var task = {};
-var myElement, tempHtml, rhsblock, current_task, myExp, taskData, search_input_box;
-var title_template, e_item_template, l_item_template;
+var myElement, tempHtml, rhsblock, current_task, myExp, taskData, search_input_box,exp_btn;
+var title_template, e_item_template, l_item_template, experiment_btn_template;
 var storage = chrome.storage.local;
 var participant = {};
+
+var task_array = [], current_task = 0;  
 
 function sub_main(){
   console.log("here is my content script init");
   getTemplate("title_template");
   getTemplate("exploratory_item_template");
   getTemplate("lobster_item_template");
+  getTemplate("experiment_helper");
   // search_input_box.addEventListener("change", find_search_keyword());
   // console.log(exploratory_list, lobster_list);
+}
+
+function nextTask(){
+  // based on participant number and current task idetify the next task
+  storage.get("participant", function(result){
+    console.log(result);
+    task_array = task_key[result.participant.num.toUpperCase()][result.participant.eNum];
+    console.log(task_array);
+  });
 }
 
 function getTemplate(templateName){
@@ -41,6 +53,13 @@ function getTemplate(templateName){
           case "lobster_item_template":
             l_item_template = req.responseText;
             // console.log(l_item_template);
+          break;
+          case "experiment_helper":
+            experiment_btn_template = req.responseText;
+            exp_btn = document.createElement("div");
+            exp_btn.innerHTML = whisker_renderer_d(experiment_btn_template,{});
+            document.body.appendChild(exp_btn);
+            exp_btn.addEventListener("click", nextTask());
           break;
         }
          
@@ -114,6 +133,8 @@ document.addEventListener("DOMSubtreeModified", function(e){
   //mutation event props to consider
   // target (elem)
   // path (array)
+
+
 });
 
 chrome.runtime.onMessage.addListener(
