@@ -30,6 +30,11 @@ function load1(){
   storage.get("participant", function(result){
     console.log(result);
     // task_array = task_key[result.participant.num.toUpperCase()][result.participant.eNum];
+    storage.get("participant", function(result){
+      var t_part = result.participant;
+      t_part.eNum = 'lt-order';
+      storage.set({"participant" : t_part});  
+    });
     task_array = task_key[result.participant.num.toUpperCase()]['ex-order'];
     storage.set({"task_array" : task_array});
     console.log(task_array);
@@ -42,6 +47,11 @@ function load2(){
   storage.get("participant", function(result){
     console.log(result);
     // task_array = task_key[result.participant.num.toUpperCase()][result.participant.eNum];
+    storage.get("participant", function(result){
+      var t_part = result.participant;
+      t_part.eNum = 'lt-order';
+      storage.set({"participant" : t_part});  
+    });
     task_array = task_key[result.participant.num.toUpperCase()]['lt-order'];
     storage.set({"task_array" : task_array});
     console.log(task_array);
@@ -62,7 +72,7 @@ function nextTask(){
     if(current_task_num < 4){
       current_task_num++;  
     } else{
-      current_task_num = -1;
+      current_task_num = 0;
     }
     storage.set({"current_task_num" : current_task_num});
     loadTask();  
@@ -163,8 +173,8 @@ document.addEventListener("DOMSubtreeModified", function(e){
     // console.log("Found new app node");
     setTimeout(function(){
       rhsblock = document.getElementById("rhs");
-      storage.get("task_title", function(result){
-        // console.log(result.task_title);
+      storage.get(["task_title", "participant"], function(result){
+        console.log(result.task_title, participant);
         if(result.task_title === 'none'){
           //do nothing
           tempHtml.innerHTML = "<div style='margin: 10px;'></div>";
@@ -172,7 +182,12 @@ document.addEventListener("DOMSubtreeModified", function(e){
           tempHtml.innerHTML = whisker_renderer_d(title_template, {"title" : result.task_title});
         }
         if(taskData && result.task_title !== 'none'){
-          tempHtml.innerHTML += whisker_renderer_d(e_item_template, {items : taskData});
+          if(result.participant.eNum == 'ex-order'){
+            tempHtml.innerHTML += whisker_renderer_d(e_item_template, {items : taskData});  
+          } else{
+            tempHtml.innerHTML += whisker_renderer_d(l_item_template, {items : taskData});  
+          }
+          
           // console.log(whisker_renderer_d(e_item_template, {items : taskData}));  
         }
       });
