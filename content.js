@@ -32,7 +32,7 @@ function load1(){
     // task_array = task_key[result.participant.num.toUpperCase()][result.participant.eNum];
     storage.get("participant", function(result){
       var t_part = result.participant;
-      t_part.eNum = 'lt-order';
+      t_part.eNum = 'ex-order';
       storage.set({"participant" : t_part});  
     });
     task_array = task_key[result.participant.num.toUpperCase()]['ex-order'];
@@ -155,6 +155,8 @@ sub_main();
 
 
 tempHtml = document.createElement("div");
+tempHtml.className = "experiment_twister";
+
 storage.get("task_title", function(result){
   tempHtml.innerHTML = whisker_renderer_d(title_template, {"title" : result.task_title});
 });
@@ -171,10 +173,10 @@ document.addEventListener("DOMSubtreeModified", function(e){
     myElement = e.srcElement;
     myElement.style.display = "none";
     // console.log("Found new app node");
+
     setTimeout(function(){
-      rhsblock = document.getElementById("rhs");
-      storage.get(["task_title", "participant"], function(result){
-        console.log(result.task_title, participant);
+      storage.get("task_title", function(result){
+        // console.log(result.task_title);
         if(result.task_title === 'none'){
           //do nothing
           tempHtml.innerHTML = "<div style='margin: 10px;'></div>";
@@ -182,16 +184,32 @@ document.addEventListener("DOMSubtreeModified", function(e){
           tempHtml.innerHTML = whisker_renderer_d(title_template, {"title" : result.task_title});
         }
         if(taskData && result.task_title !== 'none'){
-          if(result.participant.eNum == 'ex-order'){
-            tempHtml.innerHTML += whisker_renderer_d(e_item_template, {items : taskData});  
-          } else{
-            tempHtml.innerHTML += whisker_renderer_d(l_item_template, {items : taskData});  
-          }
-          
+          storage.get("participant", function(result){
+            console.log(result);
+            if(result.participant.eNum == 'ex-order'){
+              tempHtml.innerHTML += whisker_renderer_d(e_item_template, {items : taskData});  
+            } else{
+              tempHtml.innerHTML += whisker_renderer_d(l_item_template, {items : taskData});  
+            }  
+          });
           // console.log(whisker_renderer_d(e_item_template, {items : taskData}));  
         }
       });
-      rhsblock.insertBefore(tempHtml, rhsblock.childNodes[0]);
+      if(Math.floor( Math.random() * (10-1)+1) % 2 != 0){
+        console.log("pushing content to the right");
+        rhsblock = document.getElementById("rhs");
+        rhsblock.insertBefore(tempHtml, rhsblock.childNodes[0]);
+      } else{
+        console.log("pushing content to the left");
+        center_col_elem = document.getElementById("center_col");
+        parent_elem = center_col_elem.parentElement;
+        center_col_elem.style.marginLeft = "0px";
+        tempHtml.style.marginLeft = "128px";
+        parent_elem.insertBefore(tempHtml, parent_elem.childNodes[0]);
+        rhsblock = document.getElementById("rhs");
+        rhsblock.insertBefore(center_col_elem, rhsblock.childNodes[0]);
+      }
+      
       console.log("inside timeout");
     },100);
   }
