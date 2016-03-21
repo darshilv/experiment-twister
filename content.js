@@ -180,6 +180,7 @@ document.addEventListener("DOMSubtreeModified", function(e){
         if(result.task_title === 'none'){
           //do nothing
           tempHtml.innerHTML = "<div style='margin: 10px;'></div>";
+          tempHtml.setAttribute("id","empty_experiment");
         } else{
           tempHtml.innerHTML = whisker_renderer_d(title_template, {"title" : result.task_title});
         }
@@ -195,19 +196,28 @@ document.addEventListener("DOMSubtreeModified", function(e){
           // console.log(whisker_renderer_d(e_item_template, {items : taskData}));  
         }
       });
-      if(Math.floor( Math.random() * (10-1)+1) % 2 != 0){
+      // console.log("Hello Task: " + current_task);
+      if(Math.floor( Math.random() * 10 + 1) % 2 != 0){
         console.log("pushing content to the right");
         rhsblock = document.getElementById("rhs");
         rhsblock.insertBefore(tempHtml, rhsblock.childNodes[0]);
+        parent_elem = document.getElementsByClassName("col")[0];
+        center_col_elem = document.getElementById("center_col");
+        parent_elem.appendChild(center_col_elem);
+
       } else{
         console.log("pushing content to the left");
         center_col_elem = document.getElementById("center_col");
         parent_elem = center_col_elem.parentElement;
-        center_col_elem.style.marginLeft = "0px";
-        tempHtml.style.marginLeft = "128px";
-        parent_elem.insertBefore(tempHtml, parent_elem.childNodes[0]);
-        rhsblock = document.getElementById("rhs");
-        rhsblock.insertBefore(center_col_elem, rhsblock.childNodes[0]);
+        setTimeout(function(){
+          if(tempHtml.id !== "empty_experiment"){
+          center_col_elem.style.marginLeft = "0px";
+          tempHtml.style.marginLeft = "128px";
+          parent_elem.insertBefore(tempHtml, parent_elem.childNodes[0]);
+          rhsblock = document.getElementById("rhs");
+          rhsblock.insertBefore(center_col_elem, rhsblock.childNodes[0]);  
+        }
+        },100);
       }
       
       console.log("inside timeout");
